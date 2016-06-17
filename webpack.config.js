@@ -9,6 +9,8 @@ module.exports = {
     path: 'chrome',
     filename: '[name].js',
   },
+  debug: true,
+  devtool: 'source-map',
   plugins: [
     new CopyWebpackPlugin([
       { from: 'assets' },

@@ -9,6 +9,8 @@ const config = Object.assign({}, webpackConfig, {
     path: `dist/${dist}`,
     filename: '[name].js',
   },
+  debug: false,
+  devtool: false,
 });
 
 config.plugins.push(
