@@ -1,4 +1,7 @@
+const argv = require('yargs').argv;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const dist = argv.dist;
 
 module.exports = {
   entry: {
@@ -7,7 +10,7 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    path: 'dist',
+    path: `${dist}`,
     filename: '[name].js',
   },
   plugins: [
