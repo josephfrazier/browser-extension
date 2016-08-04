@@ -1,9 +1,11 @@
 import concatRegexp from 'concat-regexp';
 
 const QUOTED_WORD = /(['"][^'"\s]+['"])/;
+const JS_IMPORTS = /[\r\n\s\w{},*\$]*/;
+
 const REQUIRE = concatRegexp(/require(?:\.resolve)?(?:\s|\()/, QUOTED_WORD, /\)?/g);
-const IMPORT = concatRegexp(/import [\r\n\s\w{},*\$]*(?: from )?/, QUOTED_WORD, /(?:)/g);
-const EXPORT = concatRegexp(/export [\r\n\s\w{},*\$]*(?: from )/, QUOTED_WORD, /(?:)/g);
+const IMPORT = concatRegexp(/import /, JS_IMPORTS, /(?: from )?/, QUOTED_WORD, /(?:)/g);
+const EXPORT = concatRegexp(/export /, JS_IMPORTS, /(?: from )/, QUOTED_WORD, /(?:)/g);
 const GEM = concatRegexp(/gem /, QUOTED_WORD, /(?:)/g);
 const HOMEBREW = concatRegexp(/(?:depends_on|conflicts_with)(?: cask:| formula:)? /, QUOTED_WORD, /(?:)/g);
 const TYPESCRIPT_REFERENCE = concatRegexp(/\/{3}\s?<reference path=/, QUOTED_WORD, /(?:)/g);
