@@ -1,16 +1,20 @@
 import concatRegexp from 'concat-regexp';
 
+function concatRegexpGlobal() {
+  return concatRegexp.apply(null, Array.from(arguments).concat(/(?:)/g));
+}
+
 const QUOTED_WORD = /(['"][^'"\s]+['"])/;
 const JS_IMPORTS = /[\r\n\s\w{},*\$]*/;
 
-const REQUIRE = concatRegexp(/require(?:\.resolve)?(?:\s|\()/, QUOTED_WORD, /\)?/g);
-const IMPORT = concatRegexp(/import /, JS_IMPORTS, /(?: from )?/, QUOTED_WORD, /(?:)/g);
-const EXPORT = concatRegexp(/export /, JS_IMPORTS, /(?: from )/, QUOTED_WORD, /(?:)/g);
-const GEM = concatRegexp(/gem /, QUOTED_WORD, /(?:)/g);
-const HOMEBREW = concatRegexp(/(?:depends_on|conflicts_with)(?: cask:| formula:)? /, QUOTED_WORD, /(?:)/g);
-const TYPESCRIPT_REFERENCE = concatRegexp(/\/{3}\s?<reference path=/, QUOTED_WORD, /(?:)/g);
+const REQUIRE = concatRegexpGlobal(/require(?:\.resolve)?(?:\s|\()/, QUOTED_WORD);
+const IMPORT = concatRegexpGlobal(/import /, JS_IMPORTS, /(?: from )?/, QUOTED_WORD);
+const EXPORT = concatRegexpGlobal(/export /, JS_IMPORTS, /(?: from )/, QUOTED_WORD);
+const GEM = concatRegexpGlobal(/gem /, QUOTED_WORD);
+const HOMEBREW = concatRegexpGlobal(/(?:depends_on|conflicts_with)(?: cask:| formula:)? /, QUOTED_WORD);
+const TYPESCRIPT_REFERENCE = concatRegexpGlobal(/\/{3}\s?<reference path=/, QUOTED_WORD);
 const DOCKER_FROM = /FROM\s([^\n]*)/g;
-const VIM_PLUGIN = concatRegexp(/(?:(?:(?:Neo)?Bundle(?:Lazy|Fetch)?)|Plug(?:in)?)\s/, QUOTED_WORD, /(?:)/g);
+const VIM_PLUGIN = concatRegexpGlobal(/(?:(?:(?:Neo)?Bundle(?:Lazy|Fetch)?)|Plug(?:in)?)\s/, QUOTED_WORD);
 const RUST_CRATE = /(?:extern crate|use) ([^:; ]+)/g;
 const PYTHON_IMPORT = /(?:(?:\n|^)\s*import|from)\s([^\s]*)/g;
 
