@@ -27,7 +27,13 @@ module.exports = function (config) {
       noInfo: true,
     },
     reporters: ['mocha'],
-    browsers: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['PhantomJS'],
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox'],
+      },
+    },
     singleRun: true,
   });
 };
