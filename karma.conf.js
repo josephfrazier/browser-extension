@@ -27,7 +27,7 @@ module.exports = function (config) {
       noInfo: true,
     },
     reporters: ['mocha'],
-    browsers: ['PhantomJS'],
+    browsers: ['Firefox'],
     singleRun: true,
   });
 };
