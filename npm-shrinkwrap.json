@@ -3926,6 +3926,12 @@
         }
       }
     },
+    "karma-firefox-launcher": {
+      "version": "1.0.0",
+      "from": "karma-firefox-launcher@latest",
+      "resolved": "https://registry.npmjs.org/karma-firefox-launcher/-/karma-firefox-launcher-1.0.0.tgz",
+      "dev": true
+    },
     "karma-fixture": {
       "version": "0.2.6",
       "from": "karma-fixture@>=0.2.5 <0.3.0",
