@@ -2,8 +2,9 @@
 environment:
   nodejs_version: "6"
 
-#cache:
-# - node_modules
+cache:
+ - node_modules
+ - "%LOCALAPPDATA%/Yarn"
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -14,19 +15,18 @@ install:
   - appveyor-retry choco install phantomjs
   - appveyor-retry choco install zip
   # install modules
-  - npm install -g npm@latest
-  - npm install
+  - yarn install
 
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
   - node --version
-  - npm --version
+  - yarn --version
   # Make sure build works on Windows
-  - npm run package-all
+  - yarn run package-all
   # run tests
   - set PHANTOMJS_BIN=C:\ProgramData\chocolatey\bin\phantomjs.exe
-  - appveyor-retry call npm test
+  - appveyor-retry call yarn test
 
 # Don't actually build.
 build: off
