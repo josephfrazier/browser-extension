@@ -12,7 +12,6 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - appveyor-retry choco install firefox
   - appveyor-retry choco install googlechrome
-  - appveyor-retry choco install phantomjs
   - appveyor-retry choco install zip
   # install modules
   - yarn install
@@ -25,7 +24,6 @@ test_script:
   # Make sure build works on Windows
   - yarn run package-all
   # run tests
-  - set PHANTOMJS_BIN=C:\ProgramData\chocolatey\bin\phantomjs.exe
   - appveyor-retry call yarn test
 
 # Don't actually build.
