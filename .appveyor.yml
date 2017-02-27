@@ -2,8 +2,10 @@
 environment:
   nodejs_version: "6"
 
-cache:
-  - node_modules
+# Cache disabled because AppVeyor keeps breaking:
+# See https://travis-ci.org/OctoLinker/browser-extension/builds/205902621#L690
+# cache:
+#   - node_modules
 
 # Install scripts. (runs after repo cloning)
 install:
