@@ -38,6 +38,10 @@
       "all_frames": false
     }
   ],
+  "optional_permissions": [
+    "http://*/",
+    "https://*/"
+  ],
   "permissions": [
     "storage",
     "https://github.com/",
