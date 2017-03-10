@@ -15,6 +15,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
+  - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then yarn upgrade && git diff --exit-code; fi
   - ./packages/blob-reader/scripts/update-fixtures.sh
   - npm run package-all
 script:
