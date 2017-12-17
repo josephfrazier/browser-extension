@@ -9,8 +9,8 @@ global.chrome.runtime = {
 global.fixture = {
   load: file => {
     const fullPath = path.join(__dirname, '..', file);
-    const fixutre = fs.readFileSync(fullPath);
-    document.body.innerHTML = fixutre.toString();
+    const fixture = fs.readFileSync(fullPath);
+    document.body.innerHTML = fixture.toString();
   },
   cleanup: () => {
     document.body.innerHTML = '';
