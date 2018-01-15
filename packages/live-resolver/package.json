@@ -1,7 +1,9 @@
 {
-  "name": "live-resolver",
+  "name": "@octolinker/live-resolver",
   "version": "0.4.3",
   "description": "",
+  "repository": "https://github.com/octolinker/octolinker/tree/master/packages/live-resolver",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +11,6 @@
     "watch-test": "mocha -w"
   },
   "author": "Stefan Buck",
-  "license": "MIT",
   "engines": {
     "node": "8.9.x"
   },
@@ -28,10 +29,6 @@
     "memory-cache": "^0.2.0",
     "newrelic": "^2.2.2",
     "require-dir": "^0.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/octo-linker/live-resolver"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
