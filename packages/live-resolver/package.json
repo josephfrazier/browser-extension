@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint .",
-    "pretest": "yarn lint",
     "test": "mocha",
     "watch-test": "mocha -w"
   },
