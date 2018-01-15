@@ -22,7 +22,10 @@ function parseFailedResponse() {
 module.exports = async function doRequest(packageName, type) {
   const config = registryConfig[type];
 
-  const requestUrl = util.format(config.registry, packageName.replace(/\//g, '%2f'));
+  const requestUrl = util.format(
+    config.registry,
+    packageName.replace(/\//g, '%2f'),
+  );
 
   try {
     const response = await got.get(requestUrl);
@@ -38,13 +41,15 @@ module.exports = async function doRequest(packageName, type) {
 
     if (type === 'npm') {
       try {
-        urls.push(...json.maintainers.map(({ name }) => `${name}/${packageName}`));
+        urls.push(
+          ...json.maintainers.map(({ name }) => `${name}/${packageName}`),
+        );
       } catch (err) {
         console.log(err);
       }
     }
 
-    const validUrls = urls.map((bestMatchUrl) => {
+    const validUrls = urls.map(bestMatchUrl => {
       try {
         let url = repositoryUrl(bestMatchUrl);
 

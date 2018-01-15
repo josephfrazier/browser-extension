@@ -21,10 +21,7 @@ describe('xpath-helper', () => {
       foo: '',
       bar: 'blub',
     };
-    const xpaths = [
-      '/foo',
-      '/bar',
-    ];
+    const xpaths = ['/foo', '/bar'];
 
     it('calls jpath.resolve for each xpath entry', () => {
       xpathHelper({}, xpaths);

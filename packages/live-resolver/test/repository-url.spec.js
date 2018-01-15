@@ -16,7 +16,7 @@ describe('repository url', () => {
     'john/doe/',
   ];
 
-  urls.forEach((node) => {
+  urls.forEach(node => {
     let type = node;
     if (typeof node !== 'string') {
       type = JSON.stringify(node);
@@ -29,6 +29,9 @@ describe('repository url', () => {
 
   const detailUrl = 'https://github.com/john/doe/tree/master/foo';
   it(`resolves ${detailUrl}`, () => {
-    assert.equal(findRepositoryUrl(detailUrl), 'https://github.com/john/doe/tree/master/foo');
+    assert.equal(
+      findRepositoryUrl(detailUrl),
+      'https://github.com/john/doe/tree/master/foo',
+    );
   });
 });

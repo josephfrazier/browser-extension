@@ -48,7 +48,10 @@ describe('resolver', () => {
 
       await server.inject(options);
       assert.equal(this.gotStub.callCount, 1);
-      assert.equal(this.gotStub.args[0][0], 'https://registry.bower.io/packages/foo');
+      assert.equal(
+        this.gotStub.args[0][0],
+        'https://registry.bower.io/packages/foo',
+      );
     });
 
     it('escapes slashes in package names', async () => {
@@ -61,7 +64,10 @@ describe('resolver', () => {
 
       await server.inject(optionsScopePackage);
       assert.equal(this.gotStub.callCount, 1);
-      assert.equal(this.gotStub.args[0][0], 'https://registry.npmjs.org/@angular%2fcore');
+      assert.equal(
+        this.gotStub.args[0][0],
+        'https://registry.npmjs.org/@angular%2fcore',
+      );
     });
   });
 

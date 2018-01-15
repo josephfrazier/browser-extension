@@ -14,7 +14,8 @@ const config = [
   },
   {
     filename: 'mockito.json',
-    url: 'http://static.javadoc.io/org.mockito/mockito-core/2.12.0/allclasses-frame.html',
+    url:
+      'http://static.javadoc.io/org.mockito/mockito-core/2.12.0/allclasses-frame.html',
   },
   {
     filename: 'slf4j.json',
@@ -22,19 +23,23 @@ const config = [
   },
   {
     filename: 'hamcrest.json',
-    url: 'http://hamcrest.org/JavaHamcrest/javadoc/2.0.0.0/allclasses-frame.html',
+    url:
+      'http://hamcrest.org/JavaHamcrest/javadoc/2.0.0.0/allclasses-frame.html',
   },
   {
     filename: 'jackson-core.json',
-    url: 'http://fasterxml.github.io/jackson-core/javadoc/2.9/allclasses-frame.html',
+    url:
+      'http://fasterxml.github.io/jackson-core/javadoc/2.9/allclasses-frame.html',
   },
   {
     filename: 'jackson-databind.json',
-    url: 'http://fasterxml.github.io/jackson-databind/javadoc/2.9/allclasses-frame.html',
+    url:
+      'http://fasterxml.github.io/jackson-databind/javadoc/2.9/allclasses-frame.html',
   },
   {
     filename: 'jackson-annotations.json',
-    url: 'http://fasterxml.github.io/jackson-annotations/javadoc/2.9/allclasses-frame.html',
+    url:
+      'http://fasterxml.github.io/jackson-annotations/javadoc/2.9/allclasses-frame.html',
   },
 ];
 
@@ -55,7 +60,10 @@ async function getSpringDocumentationUrls() {
     const node = el.parentNode.parentNode.querySelector('.api-link');
     if (!node) return;
 
-    let filename = node.pathname.split('/').slice(1, 3).join('-');
+    let filename = node.pathname
+      .split('/')
+      .slice(1, 3)
+      .join('-');
     filename += '.json';
 
     let url = node.href.replace('index.html', '');
@@ -67,10 +75,12 @@ async function getSpringDocumentationUrls() {
     });
   }
 
-  document.querySelectorAll('.docs--item').forEach((elContainer) => {
+  document.querySelectorAll('.docs--item').forEach(elContainer => {
     const currentVersionEl = elContainer.querySelector('.icon-current-version');
     const releaseVersionEl = elContainer.querySelector('.icon-ga-release');
-    const snapshotVersionEl = elContainer.querySelector('.icon-snapshot-release');
+    const snapshotVersionEl = elContainer.querySelector(
+      '.icon-snapshot-release',
+    );
 
     if (currentVersionEl) {
       findUrl(currentVersionEl, urlsToFetch);
@@ -91,7 +101,7 @@ async function getClassesUrl(url) {
 
   const nodes = document.querySelectorAll('a');
   if (nodes) {
-    nodes.forEach((el) => {
+    nodes.forEach(el => {
       const link = el.href;
       let library = link.replace(/\//g, '.');
 
@@ -107,8 +117,7 @@ async function getClassesUrl(url) {
 }
 
 (async () => {
-  const fullconfig = config
-    .concat(await getSpringDocumentationUrls());
+  const fullconfig = config.concat(await getSpringDocumentationUrls());
 
   const dir = path.join(__dirname, '../mapping-files');
 

@@ -29,7 +29,7 @@ const init = async () => {
   console.log(`Server running at: ${server.info.uri}`);
 };
 
-init().catch((err) => {
+init().catch(err => {
   console.log(err);
   process.exit(1);
 });

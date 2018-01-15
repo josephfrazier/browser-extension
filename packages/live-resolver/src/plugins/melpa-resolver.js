@@ -6,13 +6,15 @@ const insight = require('../utils/insight');
 let lastModified;
 let archive;
 
-const resolveUrl = async (pkg) => {
+const resolveUrl = async pkg => {
   try {
     const response = await got('https://melpa.org/archive.json', {
       json: true,
-      headers: lastModified ? {
-        'if-modified-since': lastModified,
-      } : undefined,
+      headers: lastModified
+        ? {
+            'if-modified-since': lastModified,
+          }
+        : undefined,
     });
 
     lastModified = response.headers['last-modified'];
@@ -23,10 +25,10 @@ const resolveUrl = async (pkg) => {
     }
   }
 
-  const reachableUrl = await findReachableUrls([
-    archive[pkg].props.url,
-    `https://melpa.org/#/${pkg}`,
-  ], { firstMatch: true });
+  const reachableUrl = await findReachableUrls(
+    [archive[pkg].props.url, `https://melpa.org/#/${pkg}`],
+    { firstMatch: true },
+  );
 
   if (!reachableUrl) {
     throw new Error('No url is reachable');
@@ -35,42 +37,44 @@ const resolveUrl = async (pkg) => {
   return reachableUrl;
 };
 
-const register = (server) => {
-  server.route([{
-    path: '/q/melpa/{package*}',
-    method: 'GET',
-    config: {
-      validate: {
-        params: {
-          package: Joi.required(),
+const register = server => {
+  server.route([
+    {
+      path: '/q/melpa/{package*}',
+      method: 'GET',
+      config: {
+        validate: {
+          params: {
+            package: Joi.required(),
+          },
+        },
+        handler: async request => {
+          const pkg = request.params.package;
+
+          const eventData = {
+            registry: 'melpa',
+            package: pkg,
+            referer: request.headers.referer,
+          };
+
+          try {
+            const url = await resolveUrl(pkg);
+
+            eventData.url = url;
+            insight.trackEvent('resolved', eventData, request);
+
+            return {
+              url,
+            };
+          } catch (err) {
+            const eventKey = (err.data || {}).eventKey;
+            insight.trackError(eventKey, err, eventData, request);
+            return err;
+          }
         },
       },
-      handler: async (request) => {
-        const pkg = request.params.package;
-
-        const eventData = {
-          registry: 'melpa',
-          package: pkg,
-          referer: request.headers.referer,
-        };
-
-        try {
-          const url = await resolveUrl(pkg);
-
-          eventData.url = url;
-          insight.trackEvent('resolved', eventData, request);
-
-          return {
-            url,
-          };
-        } catch (err) {
-          const eventKey = (err.data || {}).eventKey;
-          insight.trackError(eventKey, err, eventData, request);
-          return err;
-        }
-      },
     },
-  }]);
+  ]);
 };
 
 exports.plugin = {

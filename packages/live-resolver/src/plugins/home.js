@@ -2,14 +2,18 @@ const Inert = require('inert');
 const pkg = require('../../package.json');
 const insight = require('../utils/insight');
 
-const register = async (server) => {
+const register = async server => {
   await server.register(Inert);
 
   server.ext('onPreResponse', (request, response) => {
     if (request.path === '/') {
-      insight.trackEvent('shows_index', {
-        version: pkg.version,
-      }, request);
+      insight.trackEvent(
+        'shows_index',
+        {
+          version: pkg.version,
+        },
+        request,
+      );
     }
 
     return response.continue;

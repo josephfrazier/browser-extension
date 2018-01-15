@@ -8,8 +8,11 @@ function xpathResolver(json, selector) {
   }
 }
 
-module.exports = function (json, xpaths) {
-  return xpaths.map(selector => xpathResolver(json, selector))
-    .filter(result => result.length && typeof result[0] === 'string' && result[0])
+module.exports = function(json, xpaths) {
+  return xpaths
+    .map(selector => xpathResolver(json, selector))
+    .filter(
+      result => result.length && typeof result[0] === 'string' && result[0],
+    )
     .map(result => result[0]);
 };

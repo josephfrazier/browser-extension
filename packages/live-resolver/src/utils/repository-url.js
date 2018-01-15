@@ -1,7 +1,7 @@
 const nodeUrl = require('url');
 const githubUrl = require('github-url-to-object');
 
-module.exports = function (url) {
+module.exports = function(url) {
   if (typeof url !== 'string') {
     return null;
   }
