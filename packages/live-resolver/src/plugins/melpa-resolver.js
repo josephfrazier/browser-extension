@@ -67,7 +67,7 @@ const register = server => {
               url,
             };
           } catch (err) {
-            const eventKey = (err.data || {}).eventKey;
+            const { eventKey } = err.data || {};
             insight.trackError(eventKey, err, eventData, request);
             return err;
           }

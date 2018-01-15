@@ -15,7 +15,7 @@ parallel('functional', () => {
   function testUrl(path, expectedUrl) {
     it(`resolves ${path} to ${expectedUrl}`, async () => {
       const response = await got(server.info.uri + path);
-      const url = JSON.parse(response.body).url;
+      const { url } = JSON.parse(response.body);
       assert.deepStrictEqual(url, expectedUrl);
     });
   }

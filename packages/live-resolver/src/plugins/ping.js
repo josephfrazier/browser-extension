@@ -16,7 +16,7 @@ const register = server => {
           },
         },
         handler: async request => {
-          const url = request.query.url;
+          const { url } = request.query;
 
           try {
             await got.get(url);

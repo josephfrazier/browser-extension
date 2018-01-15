@@ -39,7 +39,7 @@ const register = server => {
           const err = Boom.notFound('Library not found', {
             eventKey: 'library_not_found',
           });
-          const eventKey = (err.data || {}).eventKey;
+          const { eventKey } = err.data || {};
           insight.trackError(eventKey, err, eventData, request);
           return err;
         },
